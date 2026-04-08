@@ -222,29 +222,7 @@ footer a:hover { color: var(--ducati); }
   .cta-links { flex-direction: column; align-items: center; }
 }
 
-/* ── HERO SKETCHES ── */
-.hero-sketches {
-  position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  overflow: hidden;
-}
-.sketch-svg {
-  position: absolute;
-}
-.sketch-svg svg { width: 100%; height: auto; }
-.sketch-1 {
-  width: clamp(340px, 42vw, 620px);
-  height: auto;
-  right: -2%;
-  top: 50%;
-  transform: translateY(-52%) rotate(3deg);
-  opacity: 0.13;
-  mix-blend-mode: lighten;
-  mask-image: radial-gradient(ellipse 80% 80% at 55% 50%, black 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 55% 50%, black 30%, transparent 80%);
-}
-@media (max-width: 960px) {
-  .sketch-1 { opacity: 0.08; right: -10%; }
-  }
+
 
 </style>
 </head>
@@ -271,89 +249,7 @@ footer a:hover { color: var(--ducati); }
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-accent"></div>
-  <div class="hero-sketches">
-    <div class="sketch-svg sketch-1"><svg viewBox="0 0 1100 560" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <g stroke="white" stroke-linecap="round" stroke-linejoin="round">
-    <!-- REAR WHEEL -->
-    <circle cx="220" cy="415" r="108" stroke-width="1.8"/>
-    <circle cx="220" cy="415" r="88" stroke-width="0.6" stroke-dasharray="4 8"/>
-    <circle cx="220" cy="415" r="18" stroke-width="1.4"/>
-    <!-- rear spokes -->
-    <line x1="220" y1="307" x2="220" y2="523" stroke-width="0.5"/>
-    <line x1="112" y1="415" x2="328" y2="415" stroke-width="0.5"/>
-    <line x1="144" y1="339" x2="296" y2="491" stroke-width="0.5"/>
-    <line x1="296" y1="339" x2="144" y2="491" stroke-width="0.5"/>
-    <line x1="143" y1="456" x2="297" y2="374" stroke-width="0.5"/>
-    <line x1="297" y1="456" x2="143" y2="374" stroke-width="0.5"/>
-    <!-- FRONT WHEEL -->
-    <circle cx="880" cy="415" r="108" stroke-width="1.8"/>
-    <circle cx="880" cy="415" r="88" stroke-width="0.6" stroke-dasharray="4 8"/>
-    <circle cx="880" cy="415" r="18" stroke-width="1.4"/>
-    <!-- front spokes -->
-    <line x1="880" y1="307" x2="880" y2="523" stroke-width="0.5"/>
-    <line x1="772" y1="415" x2="988" y2="415" stroke-width="0.5"/>
-    <line x1="804" y1="339" x2="956" y2="491" stroke-width="0.5"/>
-    <line x1="956" y1="339" x2="804" y2="491" stroke-width="0.5"/>
-    <line x1="803" y1="456" x2="957" y2="374" stroke-width="0.5"/>
-    <line x1="957" y1="456" x2="803" y2="374" stroke-width="0.5"/>
-    <!-- FRONT FORKS (angled) -->
-    <line x1="880" y1="415" x2="845" y2="200" stroke-width="2"/>
-    <line x1="862" y1="415" x2="827" y2="200" stroke-width="1.4"/>
-    <!-- fork brace -->
-    <line x1="840" y1="330" x2="855" y2="330" stroke-width="1"/>
-    <!-- SWINGARM -->
-    <path d="M220,415 Q290,380 340,310" stroke-width="2"/>
-    <path d="M236,405 Q300,372 348,305" stroke-width="1"/>
-    <!-- MAIN FRAME (spine) -->
-    <path d="M836,192 C800,185 740,178 680,178 C600,178 530,195 460,220 C400,242 360,275 340,310" stroke-width="2.2"/>
-    <!-- sub-frame / seat area -->
-    <path d="M460,220 C420,240 375,258 310,268 C270,274 242,270 230,265" stroke-width="1.4"/>
-    <!-- seat strut -->
-    <line x1="340" y1="310" x2="310" y2="268" stroke-width="1.2"/>
-    <!-- ENGINE BLOCK -->
-    <path d="M355,312 L640,312 L640,390 L620,408 L380,408 L355,390 Z" stroke-width="1.6"/>
-    <!-- engine detail lines -->
-    <line x1="420" y1="312" x2="420" y2="408" stroke-width="0.7"/>
-    <line x1="500" y1="312" x2="500" y2="408" stroke-width="0.7"/>
-    <line x1="580" y1="312" x2="580" y2="408" stroke-width="0.7"/>
-    <line x1="355" y1="360" x2="640" y2="360" stroke-width="0.7"/>
-    <!-- exhaust -->
-    <path d="M380,408 Q340,430 310,450 Q280,468 260,468" stroke-width="1.8"/>
-    <path d="M395,408 Q355,428 325,445 Q295,460 276,460" stroke-width="0.8"/>
-    <!-- FUEL TANK -->
-    <path d="M470,178 C510,145 580,128 660,128 C730,128 790,148 836,192 L836,200 C800,190 740,178 680,178 C600,178 530,192 470,215 Z" stroke-width="1.8"/>
-    <!-- tank ridge -->
-    <path d="M530,148 C570,135 630,128 680,130" stroke-width="0.8" stroke-dasharray="6 4"/>
-    <!-- SEAT / TAIL SECTION -->
-    <path d="M230,265 C240,252 268,238 310,232 C350,226 400,225 460,220 L465,215" stroke-width="1.6"/>
-    <!-- tail fairing -->
-    <path d="M230,265 C210,260 196,248 196,232 C196,218 210,208 228,208 C250,208 278,218 310,232" stroke-width="1.4"/>
-    <!-- UPPER FAIRING / SCREEN -->
-    <path d="M836,192 C855,175 880,158 910,150 C935,144 960,148 978,160 C990,168 992,180 985,192 C972,208 952,218 930,224 C905,230 875,228 845,218 L836,200 Z" stroke-width="1.6"/>
-    <!-- headlight -->
-    <path d="M958,162 C968,168 974,178 970,188 C966,196 955,200 943,198" stroke-width="1" stroke-dasharray="3 3"/>
-    <circle cx="965" cy="178" r="12" stroke-width="1.2"/>
-    <!-- LOWER FAIRING -->
-    <path d="M640,312 C700,300 760,295 820,308 C850,314 872,330 878,355 L880,415" stroke-width="1.6"/>
-    <path d="M640,390 C700,375 770,370 830,380 L878,415" stroke-width="1.2"/>
-    <!-- fairing scoop -->
-    <path d="M700,305 C720,295 745,292 768,298" stroke-width="0.9"/>
-    <!-- HANDLEBAR -->
-    <path d="M836,200 C830,195 820,188 808,184 C796,180 785,181 778,187" stroke-width="1.6"/>
-    <line x1="778" y1="187" x2="768" y2="190" stroke-width="1.2"/>
-    <!-- BRAKE DISC FRONT -->
-    <circle cx="880" cy="415" r="55" stroke-width="0.6" stroke-dasharray="5 6"/>
-    <!-- BRAKE DISC REAR -->
-    <circle cx="220" cy="415" r="55" stroke-width="0.6" stroke-dasharray="5 6"/>
-    <!-- CENTER LINE (sketch convention) -->
-    <line x1="100" y1="415" x2="1000" y2="415" stroke-width="0.4" stroke-dasharray="12 6" opacity="0.4"/>
-    <!-- DIMENSION ARROWS (sketch feel) -->
-    <line x1="220" y1="510" x2="880" y2="510" stroke-width="0.5" opacity="0.5"/>
-    <line x1="220" y1="502" x2="220" y2="518" stroke-width="0.5" opacity="0.5"/>
-    <line x1="880" y1="502" x2="880" y2="518" stroke-width="0.5" opacity="0.5"/>
-  </g>
-</svg></div>
-  </div>
+</div>
   <div class="hero-content" style="position:relative;z-index:1;">
     <div class="hero-badge">
       <span class="hero-badge-line"></span>
@@ -372,8 +268,8 @@ footer a:hover { color: var(--ducati); }
     </p>
     <div class="telem">
       <div class="telem-box">
-        <div class="telem-val">10<span>+</span></div>
-        <div class="telem-key">Anni Experience</div>
+        <div class="telem-val">15<span>y</span></div>
+        <div class="telem-key">Experience</div>
       </div>
       <div class="telem-box">
         <div class="telem-val">300<span>+</span></div>
@@ -381,7 +277,7 @@ footer a:hover { color: var(--ducati); }
       </div>
       <div class="telem-box">
         <div class="telem-val">6<span>y</span></div>
-        <div class="telem-key">6y B2B Mktg Automation</div>
+        <div class="telem-key">B2B Mktg Automation</div>
       </div>
       <div class="telem-box">
         <div class="telem-val">&infin;</div>
