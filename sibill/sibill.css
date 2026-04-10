@@ -1,4 +1,6 @@
 /* ── RESET & TOKENS ── */
+/* Font: Poppins (confirmed from Sibill's widget CSS) */
+/* Card shadow: extracted from Sibill's .ti-review-item shadow values */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -25,12 +27,16 @@
   /* borders */
   --border:        #e2e8f0;
   --border-indigo: rgba(150,158,255,0.25);
+
+  /* shadows — from Sibill's widget CSS */
+  --shadow-card:  1px 4px 10px 0px rgba(0,0,0,0.10), 0px 0px 2px 0px rgba(0,0,0,0.05);
+  --shadow-hover: 0 8px 24px rgba(150,158,255,0.18), 0px 0px 2px 0px rgba(0,0,0,0.05);
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: Outfit, sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
@@ -155,11 +161,11 @@ nav {
   border-radius: 10px; padding: 18px 26px; min-width: 138px;
   position: relative; overflow: hidden;
   transition: border-color 0.3s, box-shadow 0.3s;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-card);
 }
 .telem-box:hover {
   border-color: var(--border-indigo);
-  box-shadow: 0 4px 20px rgba(150,158,255,0.15);
+  box-shadow: var(--shadow-hover);
 }
 .telem-box::after {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
@@ -229,7 +235,7 @@ section { padding: clamp(72px,10vw,120px) clamp(20px,4vw,56px); }
   background: var(--gradient-soft);
   border-color: var(--border-indigo);
   transform: translateX(6px);
-  box-shadow: 0 4px 20px rgba(150,158,255,0.12);
+  box-shadow: var(--shadow-hover);
 }
 .p-card:hover::before { opacity: 1; }
 .p-card-h { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
@@ -314,7 +320,7 @@ section { padding: clamp(72px,10vw,120px) clamp(20px,4vw,56px); }
   background: var(--gradient-soft);
   border-color: var(--border-indigo);
   transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(150,158,255,0.15);
+  box-shadow: var(--shadow-hover);
 }
 .x-card:hover::after { opacity: 1; }
 .x-icon { font-size: 24px; margin-bottom: 16px; }
@@ -390,7 +396,7 @@ section { padding: clamp(72px,10vw,120px) clamp(20px,4vw,56px); }
   display: inline-flex; align-items: center; gap: 8px;
   padding: 14px 28px; border-radius: 8px;
   font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
-  text-decoration: none; font-family: Outfit, sans-serif;
+  text-decoration: none; font-family: 'Poppins', sans-serif;
   transition: all 0.3s; cursor: pointer; border: none;
 }
 .cta-primary {
