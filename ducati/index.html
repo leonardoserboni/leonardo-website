@@ -8,223 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --black: #09090b; --dark: #111113; --carbon: #18181b;
-  --ducati: #CC0000; --ducati-bright: #e60000; --ducati-dim: #8b0000;
-  --white: #fafafa; --smoke: #e4e4e7; --silver: #a1a1aa;
-  --muted: #52525b; --subtle: #27272a; --glass: rgba(255,255,255,0.03);
-}
-html { scroll-behavior: smooth; }
-body { font-family: Outfit, sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-::selection { background: var(--ducati); color: var(--white); }
-body::after {
-  content: ''; position: fixed; inset: 0; opacity: 0.025;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 10000;
-}
-
-/* ── PROGRESS BAR ── */
-#progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--ducati); z-index: 9999; width: 0%; transition: width 0.1s linear; }
-
-/* ── REVEAL ── */
-.rv { opacity: 0; transform: translateY(32px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
-.rv.vis { opacity: 1; transform: translateY(0); }
-.rv-d1 { transition-delay: 0.08s; } .rv-d2 { transition-delay: 0.16s; }
-.rv-d3 { transition-delay: 0.24s; } .rv-d4 { transition-delay: 0.32s; }
-
-/* ── NAV ── */
-nav {
-  position: fixed; top: 2px; left: 0; right: 0; z-index: 200; height: 64px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 clamp(20px,4vw,56px);
-  background: rgba(9,9,11,0.85); backdrop-filter: blur(24px) saturate(1.4);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.nav-left { display: flex; align-items: center; gap: 14px; }
-.nav-mark { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; color: var(--white); }
-.nav-mark span { color: var(--ducati); }
-.nav-sep { width: 1px; height: 18px; background: var(--subtle); }
-.nav-tag { font-size: 10px; font-weight: 400; color: var(--muted); letter-spacing: 2.5px; text-transform: uppercase; }
-.nav-right { display: flex; gap: 24px; list-style: none; align-items: center; }
-.nav-right a { font-size: 11px; font-weight: 500; color: var(--silver); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
-.nav-right a:hover { color: var(--white); }
-.nav-cta { background: var(--ducati) !important; color: var(--white) !important; padding: 7px 16px !important; border-radius: 3px; font-weight: 600 !important; transition: background 0.2s, transform 0.2s !important; }
-.nav-cta:hover { background: var(--ducati-bright) !important; transform: translateY(-1px); }
-
-/* ── HERO ── */
-.hero {
-  min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
-  padding: 100px clamp(20px,4vw,56px) 60px; position: relative; overflow: hidden;
-}
-.hero-glow {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 70% 55% at 80% 30%, rgba(204,0,0,0.22) 0%, rgba(140,0,0,0.08) 45%, transparent 70%),
-    radial-gradient(ellipse 45% 40% at 10% 85%, rgba(204,0,0,0.10) 0%, transparent 55%),
-    radial-gradient(ellipse 30% 60% at 50% 50%, rgba(100,0,0,0.05) 0%, transparent 70%);
-}
-.hero-accent { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--ducati), transparent 65%); }
-.hero-content { position: relative; z-index: 1; max-width: 980px; }
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 36px;
-  opacity: 0; animation: up 0.7s 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
-}
-.hero-badge-line { width: 32px; height: 1px; background: var(--ducati); }
-.hero-badge span { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--ducati); }
-@keyframes up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-.hero-h1 {
-  font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px,9vw,130px);
-  line-height: 0.92; letter-spacing: -1px; margin-bottom: 14px;
-  opacity: 0; animation: up 0.8s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
-}
-.hero-h1 .r { color: var(--ducati); display: block; }
-.hero-h2 {
-  font-family: 'Bebas Neue', sans-serif; font-size: clamp(18px,2.8vw,36px);
-  color: var(--silver); letter-spacing: 3px; margin-bottom: 32px;
-  opacity: 0; animation: up 0.8s 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
-}
-.hero-p {
-  font-size: 16px; font-weight: 300; color: var(--silver); line-height: 1.85;
-  max-width: 560px; margin-bottom: 52px;
-  opacity: 0; animation: up 0.8s 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
-}
-.hero-p strong { color: var(--white); font-weight: 500; }
-.telem { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: up 0.8s 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
-.telem-box {
-  background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 8px; padding: 18px 26px; min-width: 138px; position: relative; overflow: hidden;
-  transition: border-color 0.3s, background 0.3s;
-}
-.telem-box:hover { border-color: rgba(204,0,0,0.2); background: rgba(204,0,0,0.04); }
-.telem-box::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--ducati), transparent); }
-.telem-val { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--white); line-height: 1; }
-.telem-val span { color: var(--ducati); font-size: 26px; }
-.telem-key { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
-
-/* ── SECTIONS ── */
-section { padding: clamp(72px,10vw,120px) clamp(20px,4vw,56px); }
-.sec-dark { background: var(--dark); }
-.sec-black { background: var(--black); }
-.s-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--ducati); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-.s-label::before { content: ''; width: 20px; height: 1px; background: var(--ducati); }
-.s-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(34px,5vw,64px); line-height: 1.0; letter-spacing: 1px; margin-bottom: 20px; }
-.s-title .r { color: var(--ducati); } .s-title .d { color: var(--muted); }
-.s-intro { font-size: 15px; font-weight: 300; color: var(--silver); line-height: 1.85; max-width: 560px; margin-bottom: 52px; }
-
-/* ── PERCHÉ DUCATI ── */
-#perche { position: relative; overflow: hidden; }
-.perche-wm {
-  position: absolute; right: -2%; bottom: -4%; font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(140px,22vw,300px); color: rgba(255,255,255,0.013); letter-spacing: 8px;
-  pointer-events: none; line-height: 1; user-select: none;
-}
-.perche-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 72px; align-items: start; }
-.perche-text p { font-size: 16px; color: var(--silver); line-height: 1.95; margin-bottom: 22px; font-weight: 300; }
-.perche-text strong { color: var(--white); font-weight: 600; }
-.perche-text em { color: var(--ducati); font-style: normal; font-weight: 500; }
-.perche-text .pull {
-  font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px,2.2vw,28px); color: var(--white);
-  letter-spacing: 1px; line-height: 1.3; border-left: 3px solid var(--ducati);
-  padding-left: 20px; margin: 32px 0; font-weight: 400;
-}
-.perche-cards { display: flex; flex-direction: column; gap: 12px; }
-.p-card {
-  background: var(--glass); border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 10px; padding: 22px 26px; transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
-  position: relative; cursor: default;
-}
-.p-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 3px 0 0 3px; background: var(--ducati); opacity: 0; transition: opacity 0.3s; }
-.p-card:hover { background: rgba(204,0,0,0.04); border-color: rgba(204,0,0,0.12); transform: translateX(6px); }
-.p-card:hover::before { opacity: 1; }
-.p-card-h { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 5px; }
-.p-card-p { font-size: 12.5px; color: var(--silver); line-height: 1.65; font-weight: 300; }
-
-/* ── MATCH ── */
-.match-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; background: rgba(255,255,255,0.02); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.04); }
-.m-item { background: var(--black); padding: 30px; position: relative; transition: background 0.3s; }
-.m-item:hover { background: rgba(204,0,0,0.03); }
-.m-badge { position: absolute; top: 14px; right: 14px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
-.m-match { background: rgba(204,0,0,0.12); color: var(--ducati); }
-.m-extra { background: rgba(234,179,8,0.1); color: #eab308; }
-.m-req { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; }
-.m-ans { font-size: 13.5px; font-weight: 300; color: var(--smoke); line-height: 1.65; }
-.m-ans strong { color: var(--ducati); font-weight: 600; }
-
-/* ── VISIONE 90 GIORNI ── */
-.vis-phases { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.04); margin-bottom: 40px; }
-.vis-phase { background: var(--dark); padding: 38px 30px; position: relative; overflow: hidden; }
-.vis-phase::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ducati); transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
-.vis-phase:hover::after { transform: scaleX(1); }
-.vis-num { font-family: 'Bebas Neue', sans-serif; font-size: 54px; color: var(--subtle); line-height: 1; margin-bottom: 14px; }
-.vis-phase-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--white); margin-bottom: 6px; }
-.vis-phase-when { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ducati); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
-.vis-phase-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.vis-phase-list li { font-size: 12.5px; color: var(--silver); line-height: 1.6; font-weight: 300; padding-left: 16px; position: relative; }
-.vis-phase-list li::before { content: '›'; position: absolute; left: 0; color: var(--ducati); font-weight: 700; font-size: 15px; }
-.vis-note { font-size: 13.5px; color: var(--muted); font-weight: 300; font-style: italic; text-align: center; padding: 22px; border: 1px dashed rgba(255,255,255,0.06); border-radius: 8px; }
-
-/* ── EXTRA ── */
-.extra-cols { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
-.x-card { background: var(--glass); border: 1px solid rgba(255,255,255,0.04); border-radius: 14px; padding: 34px 26px; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); position: relative; overflow: hidden; }
-.x-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg,var(--ducati),transparent); opacity: 0; transition: opacity 0.3s; }
-.x-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-6px); border-color: rgba(255,255,255,0.07); }
-.x-card:hover::after { opacity: 1; }
-.x-icon { font-size: 24px; margin-bottom: 16px; }
-.x-card-h { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--white); margin-bottom: 10px; }
-.x-card-p { font-size: 13px; color: var(--silver); line-height: 1.75; font-weight: 300; }
-
-/* ── TIMELINE ── */
-.tl { position: relative; padding-left: 36px; max-width: 700px; }
-.tl::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 1px; background: linear-gradient(to bottom, var(--ducati), var(--subtle) 60%, transparent); }
-.tl-i { margin-bottom: 44px; position: relative; }
-.tl-dot { position: absolute; left: -42px; top: 6px; width: 12px; height: 12px; background: var(--ducati); border-radius: 50%; border: 2px solid var(--dark); box-shadow: 0 0 0 3px rgba(204,0,0,0.25); }
-.tl-when { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--ducati); margin-bottom: 6px; }
-.tl-role { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--white); margin-bottom: 4px; }
-.tl-co { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; font-weight: 300; }
-.tl-desc { font-size: 13px; color: var(--silver); line-height: 1.75; font-weight: 300; }
-
-/* ── TOOLS ── */
-.tools-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-.tool-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 400; padding: 7px 14px; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); color: var(--silver); transition: all 0.2s; cursor: default; }
-.tool-tag:hover { border-color: rgba(204,0,0,0.3); color: var(--white); background: rgba(204,0,0,0.06); }
-.tool-tag.hl { border-color: rgba(204,0,0,0.25); color: var(--ducati); background: rgba(204,0,0,0.06); }
-
-/* ── CTA ── */
-#cta { text-align: center; padding: clamp(80px,14vw,160px) clamp(20px,4vw,56px); position: relative; overflow: hidden; }
-#cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 55% 70% at 50% 100%, rgba(204,0,0,0.07) 0%, transparent 70%); }
-.cta-inner { position: relative; z-index: 1; }
-.cta-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px,5.5vw,72px); letter-spacing: 2px; margin-bottom: 20px; line-height: 1; }
-.cta-h .r { color: var(--ducati); }
-.cta-p { font-size: 16px; color: var(--silver); font-weight: 300; line-height: 1.85; max-width: 480px; margin: 0 auto 44px; }
-.cta-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 4px; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; font-family: Outfit,sans-serif; transition: all 0.3s; cursor: pointer; border: none; }
-.cta-primary { background: var(--ducati); color: var(--white); }
-.cta-primary:hover { background: var(--ducati-bright); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(204,0,0,0.35); }
-.cta-ghost { background: transparent; color: var(--silver); border: 1px solid rgba(255,255,255,0.1); }
-.cta-ghost:hover { border-color: rgba(255,255,255,0.25); color: var(--white); }
-
-/* ── FOOTER ── */
-footer { padding: 28px clamp(20px,4vw,56px); border-top: 1px solid rgba(255,255,255,0.03); display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); font-weight: 300; }
-footer a { color: var(--silver); text-decoration: none; transition: color 0.2s; }
-footer a:hover { color: var(--ducati); }
-.footer-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1px; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 960px) {
-  .perche-grid, .vis-phases, .extra-cols { grid-template-columns: 1fr; }
-  .match-grid { grid-template-columns: 1fr; }
-  .nav-right { display: none; }
-}
-@media (max-width: 600px) {
-  .telem { flex-direction: column; }
-  .cta-links { flex-direction: column; align-items: center; }
-}
-
-
-
-</style>
+<link rel="stylesheet" href="/ducati/style.css">
 </head>
 <body>
 
@@ -237,6 +21,7 @@ footer a:hover { color: var(--ducati); }
     <div class="nav-tag">Application 2026</div>
   </div>
   <ul class="nav-right">
+    <li><a href="#origine">L&rsquo;Origine</a></li>
     <li><a href="#perche">Perch&eacute; Ducati</a></li>
     <li><a href="#match">Il Match</a></li>
     <li><a href="#visione">Visione</a></li>
@@ -259,11 +44,11 @@ footer a:hover { color: var(--ducati); }
       NON CERCO<br>UN LAVORO.
       <span class="r">SCELGO DUCATI.</span>
     </h1>
-    <p class="hero-h2">10+ anni di digital marketing. Un solo brand per cui ricominciare.</p>
+    <p class="hero-h2">15+ anni di digital marketing. Un solo brand per cui ricominciare.</p>
     <p class="hero-p">
       Senior Digital Marketing Manager con background in B2B SaaS, e-commerce e agency.
       Marketing automation, performance, comunicazione data-driven.
-      <strong>Questa pagina non &egrave; un CV &mdash; &egrave; un deliverable.</strong>
+      <strong>Questa pagina non &egrave; un CV, &egrave; un deliverable.</strong>
       Esattamente come quelli che produrrei ogni giorno.
     </p>
     <div class="telem">
@@ -287,6 +72,97 @@ footer a:hover { color: var(--ducati); }
   </div>
 </section>
 
+<!-- L'ORIGINE -->
+<section id="origine" class="sec-dark">
+  <div class="origine-wm">MISANO</div>
+  <div class="origine-inner">
+
+    <div class="s-label rv">L&rsquo;origine</div>
+
+    <div class="origine-eyebrow rv rv-d1">
+      <span>Misano World Circuit</span>
+      <span class="origine-eyebrow-sep">&times;</span>
+      <span>Giugno 2000</span>
+      <span class="origine-eyebrow-sep">&times;</span>
+      <span>14 anni</span>
+    </div>
+
+    <div class="origine-lead rv rv-d2">
+      Il sole. La pista.<br>Un rombo che non avevo mai sentito prima.
+    </div>
+
+    <div class="origine-body">
+      <p class="rv rv-d2">
+        Misano, pieno giugno. Il caldo di mezzogiorno sale dall&rsquo;asfalto e ti incolla la maglietta alla schiena.
+        Ho quattordici anni e sto aspettando che arrivino le moto.
+      </p>
+      <p class="rv rv-d3">
+        Il rumore arriva prima di loro.
+      </p>
+      <p class="rv rv-d3">
+        Profondo. Rauco. Viscerale, diverso da tutto quello che avevo sentito fino a quel momento,
+        e lo capisco anche a quell&rsquo;et&agrave;, anche senza saper spiegare perch&eacute;.
+        Non &egrave; il rombo di una moto <em>pi&ugrave; potente</em>.
+        &Egrave; il rombo di una moto che ha <strong>qualcosa da dire</strong>.
+      </p>
+    </div>
+
+    <div class="origine-pull rv rv-d3">
+      &ldquo;Prima ancora della MotoGP, il Mondiale Superbike era l&rsquo;unico palcoscenico per ammirare le Ducati.
+      E Misano era il tempio. Quel giorno, per qualche ora, era il centro del mondo.&rdquo;
+    </div>
+
+    <div class="origine-body">
+      <p class="rv rv-d4">
+        In pista scendono Bayliss e Bostrom. Livrea rossa, numero bianco, Ducati Corse.
+        Li guardo fare quello che nessun altro fa in quel modo,
+        quella moto sembra quasi impossibile da domare: scivola, si raddrizza,
+        accelera con una violenza che non ti aspetti.
+        Il pilota sembra avere sempre torto, e sempre ragione un secondo dopo.
+      </p>
+      <p class="rv rv-d4">
+        Non capisco ancora niente di L-twin, di distribuzione desmodromica, di angolo di piega.
+        Capisco solo una cosa, con la chiarezza che hanno solo le cose vere:
+        quella moto &egrave; <em>diversa dentro</em>.
+        Non solo pi&ugrave; veloce. Diversa. Scomoda. Orgogliosa.
+        Come se avesse rifiutato il compromesso in fase di progetto.
+      </p>
+    </div>
+
+    <div class="origine-divider rv">
+      <div class="origine-divider-line"></div>
+      <div class="origine-divider-dot"></div>
+      <div class="origine-divider-line" style="background: linear-gradient(270deg, var(--ducati), rgba(204,0,0,0.15), transparent);"></div>
+    </div>
+
+    <div class="origine-chiusura rv">
+      Quella domenica di giugno non ho scelto una moto preferita.
+      <strong>
+        Ho scelto un brand per la vita.<br>
+        Venticinque anni dopo, voglio finalmente lavorare per lui.
+      </strong>
+    </div>
+
+    <div class="origine-footer rv rv-d1">
+      <div class="origine-footer-item">
+        <div class="origine-footer-val">WSBK</div>
+        <div class="origine-footer-label">Il palcoscenico<br>di allora</div>
+      </div>
+      <div class="origine-footer-sep"></div>
+      <div class="origine-footer-item">
+        <div class="origine-footer-val">Bayliss &middot; Bostrom</div>
+        <div class="origine-footer-label">In pista<br>quel giorno</div>
+      </div>
+      <div class="origine-footer-sep"></div>
+      <div class="origine-footer-item">
+        <div class="origine-footer-val">14 anni</div>
+        <div class="origine-footer-label">Un&rsquo;impressione<br>che non passa</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- PERCHÉ DUCATI -->
 <section id="perche" class="sec-dark">
   <div class="perche-wm">DUCATI</div>
@@ -306,7 +182,7 @@ footer a:hover { color: var(--ducati); }
         <strong>amare davvero quello che fai</strong>.
       </p>
       <div class="pull rv rv-d4">
-        &ldquo;Il brand giusto non si cerca &mdash; si riconosce.&rdquo;
+        &ldquo;Il brand giusto non si cerca, si riconosce.&rdquo;
       </div>
       <p class="rv rv-d4">
         Porto competenze che vanno oltre la posizione: <strong>visione strategica, processi scalabili,
@@ -348,7 +224,7 @@ footer a:hover { color: var(--ducati); }
     </div>
     <div class="m-item">
       <span class="m-badge m-match">Match</span>
-      <div class="m-req">Analytics &mdash; GA4, Data Studio, KPI</div>
+      <div class="m-req">Analytics: GA4, Data Studio, KPI</div>
       <div class="m-ans"><strong>GA4 e Looker Studio</strong> ogni giorno. Reporting strutturato con integrazione KPI digitali e KPI di business, presentazione a Direzione.</div>
     </div>
     <div class="m-item">
@@ -369,7 +245,7 @@ footer a:hover { color: var(--ducati); }
     <div class="m-item">
       <span class="m-badge m-match">Match</span>
       <div class="m-req">CRM e dinamiche relazionali</div>
-      <div class="m-ans">Non semplice &ldquo;familiarit&agrave;&rdquo; &mdash; <strong>Salesforce Marketing Cloud</strong> &egrave; il mio strumento principale. Nurturing, lead scoring, workflow omnicanale strutturati.</div>
+      <div class="m-ans">Non semplice &ldquo;familiarit&agrave;&rdquo;, <strong>Salesforce Marketing Cloud</strong> &egrave; il mio strumento principale. Nurturing, lead scoring, workflow omnicanale strutturati.</div>
     </div>
     <div class="m-item">
       <span class="m-badge m-match">Match</span>
@@ -379,7 +255,7 @@ footer a:hover { color: var(--ducati); }
     <div class="m-item">
       <span class="m-badge m-extra">Extra</span>
       <div class="m-req">Marketing Automation avanzata</div>
-      <div class="m-ans">Competenza che <strong>va oltre il richiesto</strong>: ho costruito da zero l&rsquo;ecosistema automation di Passepartout &mdash; workflow, scoring, nurturing multicanale integrati.</div>
+      <div class="m-ans">Competenza che <strong>va oltre il richiesto</strong>: ho costruito da zero l&rsquo;ecosistema automation di Passepartout; workflow, scoring, nurturing multicanale integrati.</div>
     </div>
   </div>
 </section>
@@ -388,7 +264,7 @@ footer a:hover { color: var(--ducati); }
 <section id="visione" class="sec-dark">
   <div class="s-label rv">La Visione</div>
   <div class="s-title rv rv-d1">COSA FAREI NEI<br>PRIMI <span class="r">90 GIORNI.</span></div>
-  <p class="s-intro rv rv-d2">Non promesse &mdash; un metodo. Dal primo giorno al terzo mese.</p>
+  <p class="s-intro rv rv-d2">Non promesse, un metodo. Dal primo giorno al terzo mese.</p>
   <div class="vis-phases rv rv-d3">
     <div class="vis-phase">
       <div class="vis-num">01</div>
@@ -428,7 +304,7 @@ footer a:hover { color: var(--ducati); }
     </div>
   </div>
   <div class="vis-note rv">
-    Questa &egrave; un&rsquo;ipotesi costruita sull&rsquo;annuncio e sulla mia esperienza &mdash; non una prescrizione.
+    Questa &egrave; un&rsquo;ipotesi costruita sull&rsquo;annuncio e sulla mia esperienza, non una prescrizione.
     La realt&agrave; si scopre dall&rsquo;interno, e adattarsi fa parte del metodo.
   </div>
 </section>
@@ -442,12 +318,12 @@ footer a:hover { color: var(--ducati); }
     <div class="x-card rv">
       <div class="x-icon">&#9889;</div>
       <div class="x-card-h">MARKETING AUTOMATION</div>
-      <div class="x-card-p">Salesforce Marketing Cloud a livello avanzato. Customer journey, nurturing e workflow che oggi potrebbero essere sottoutilizzati o assenti &mdash; costruiti da zero, non configurati.</div>
+      <div class="x-card-p">Salesforce Marketing Cloud a livello avanzato. Customer journey, nurturing e workflow che oggi potrebbero essere sottoutilizzati o assenti, costruiti da zero, non configurati.</div>
     </div>
     <div class="x-card rv rv-d1">
       <div class="x-icon">&#128202;</div>
       <div class="x-card-h">DATA STRATEGY</div>
-      <div class="x-card-p">Non solo leggere KPI &mdash; costruire framework di misurazione che colleghino metriche digitali a risultati di business. Reporting che guida decisioni, non che le giustifica.</div>
+      <div class="x-card-p">Non solo leggere KPI; costruire framework di misurazione che colleghino metriche digitali a risultati di business. Reporting che guida decisioni, non che le giustifica.</div>
     </div>
     <div class="x-card rv rv-d2">
       <div class="x-icon">&#128295;</div>
@@ -467,14 +343,14 @@ footer a:hover { color: var(--ducati); }
       <div class="tl-dot"></div>
       <div class="tl-when">Apr 2019 &ndash; Presente</div>
       <div class="tl-role">SENIOR DIGITAL MARKETING MANAGER</div>
-      <div class="tl-co">Passepartout SPA &mdash; Software House B2B &middot; 200+ dipendenti &middot; San Marino</div>
+      <div class="tl-co">Passepartout SPA, Software House B2B &middot; 200+ dipendenti &middot; San Marino</div>
       <div class="tl-desc">Ownership completa strategia digital: paid media, SEO, marketing automation con Salesforce Marketing Cloud, analytics. Coordinamento agenzie e rete 300+ partner. Reporting strutturato alla Direzione con KPI digitali e di business integrati.</div>
     </div>
     <div class="tl-i rv">
       <div class="tl-dot"></div>
       <div class="tl-when">Ott 2015 &ndash; Apr 2019</div>
       <div class="tl-role">PROJECT MANAGER &amp; TEAM LEADER</div>
-      <div class="tl-co">Titanka SPA &mdash; Web Agency hospitality &middot; 100+ dipendenti &middot; San Marino</div>
+      <div class="tl-co">Titanka SPA, Web Agency hospitality &middot; 100+ dipendenti &middot; San Marino</div>
       <div class="tl-desc">Team leader di 10 risorse su progetti web enterprise nel settore turistico. CRO, UX Design, gestione clienti premium. Interfaccia strategica tra tecnico e commerciale.</div>
     </div>
     <div class="tl-i rv">
@@ -509,7 +385,7 @@ footer a:hover { color: var(--ducati); }
 <section id="cta" class="sec-black">
   <div class="cta-inner">
     <div class="cta-h rv">QUESTA PAGINA &Egrave;<br><span class="r">LA MIA CANDIDATURA.</span></div>
-    <p class="cta-p rv rv-d1">Non un PDF statico. Un deliverable di comunicazione digitale &mdash; pensato, progettato e costruito per un solo brand. Esattamente come farei ogni giorno per Ducati.</p>
+    <p class="cta-p rv rv-d1">Non un PDF statico. Un deliverable di comunicazione digitale, pensato, progettato e costruito per un solo brand. Esattamente come farei ogni giorno per Ducati.</p>
     <div class="cta-links rv rv-d2">
       <a class="cta-btn cta-primary" href="mailto:leonardoserboni@gmail.com">&#9993;&nbsp; Scrivimi</a>
       <a class="cta-btn cta-ghost" href="https://linkedin.com/in/leonardoserboni" target="_blank" rel="noopener">&#128188;&nbsp; LinkedIn</a>
@@ -520,7 +396,7 @@ footer a:hover { color: var(--ducati); }
 
 <footer>
   <span>&copy; 2026 Leonardo Serboni</span>
-  <span class="footer-meta">Built as a digital communication deliverable &mdash; not a r&eacute;sum&eacute;.</span>
+  <span class="footer-meta">Built as a digital communication deliverable, not a r&eacute;sum&eacute;.</span>
 </footer>
 
 <script>
