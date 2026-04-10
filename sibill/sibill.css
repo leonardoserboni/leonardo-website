@@ -236,11 +236,12 @@ section { padding: clamp(72px,10vw,120px) clamp(20px,4vw,56px); }
 }
 .perche-cards { display: flex; flex-direction: column; gap: 12px; }
 .p-card {
-  /* lavender fill — like Sibill feature cards, no border/shadow by default */
-  background: var(--bg-card); border: none;
+  /* white card on lavender section bg — visible by default, not just on hover */
+  background: #ffffff; border: none;
   border-radius: 12px; padding: 22px 26px;
   transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
   position: relative; cursor: default;
+  box-shadow: var(--shadow-card);
 }
 .p-card::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
