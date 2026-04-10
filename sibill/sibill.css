@@ -4,19 +4,20 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* backgrounds */
+  /* backgrounds — from screenshot analysis */
   --bg:        #ffffff;
-  --bg-alt:    #f5f4ff;
-  --bg-card:   #ffffff;
+  --bg-alt:    #edeeff;   /* lavanda chiara delle sezioni feature di Sibill */
+  --bg-card:   #edeeff;   /* cards con fill lavanda (non bianco) */
+  --bg-nav-bar:#1a1a3e;   /* top announcement bar navy scuro */
 
-  /* indigo palette */
+  /* indigo palette — #969EFF confermato dall'utente */
   --sibill:        #969EFF;
   --sibill-dark:   #6366f1;
   --sibill-deeper: #4338ca;
   --sibill-light:  #c4c6ff;
-  --sibill-ghost:  rgba(150,158,255,0.10);
+  --sibill-ghost:  rgba(150,158,255,0.12);
   --gradient:      linear-gradient(135deg, #969EFF 0%, #6366f1 100%);
-  --gradient-soft: linear-gradient(135deg, rgba(150,158,255,0.15) 0%, rgba(99,102,241,0.08) 100%);
+  --gradient-soft: linear-gradient(135deg, rgba(150,158,255,0.18) 0%, rgba(99,102,241,0.10) 100%);
 
   /* text */
   --text:        #0f172a;
@@ -24,16 +25,28 @@
   --text-muted:  #64748b;
   --text-subtle: #94a3b8;
 
-  /* borders */
-  --border:        #e2e8f0;
-  --border-indigo: rgba(150,158,255,0.25);
+  /* borders — più leggeri su sfondo lavanda */
+  --border:        rgba(150,158,255,0.20);
+  --border-indigo: rgba(150,158,255,0.35);
 
   /* shadows — from Sibill's widget CSS */
   --shadow-card:  1px 4px 10px 0px rgba(0,0,0,0.10), 0px 0px 2px 0px rgba(0,0,0,0.05);
-  --shadow-hover: 0 8px 24px rgba(150,158,255,0.18), 0px 0px 2px 0px rgba(0,0,0,0.05);
+  --shadow-hover: 0 8px 28px rgba(99,102,241,0.22), 0px 0px 2px 0px rgba(0,0,0,0.05);
 }
 
 html { scroll-behavior: smooth; }
+
+/* ── ANNOUNCEMENT BAR (top navy strip seen in screenshot) ── */
+.announcement-bar {
+  background: var(--bg-nav-bar);
+  color: rgba(255,255,255,0.88);
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px; font-weight: 400; letter-spacing: 0.3px;
+  text-align: center; padding: 9px clamp(16px,3vw,40px);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 201;
+}
+.announcement-bar a { color: var(--sibill-light); text-decoration: none; font-weight: 500; }
+.announcement-bar a:hover { text-decoration: underline; }
 
 body {
   font-family: 'Poppins', sans-serif;
@@ -68,19 +81,19 @@ body {
 .rv-d3 { transition-delay: 0.24s; }
 .rv-d4 { transition-delay: 0.32s; }
 
-/* ── NAV ── */
+/* ── NAV — sits below the 36px announcement bar ── */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 64px;
+  position: fixed; top: 36px; left: 0; right: 0; z-index: 200; height: 64px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 clamp(20px,4vw,56px);
-  background: rgba(255,255,255,0.90);
+  background: rgba(255,255,255,0.95);
   backdrop-filter: blur(20px) saturate(1.6);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(150,158,255,0.12);
 }
 .nav-left  { display: flex; align-items: center; gap: 14px; }
 .nav-mark  { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; color: var(--text); }
 .nav-mark span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.nav-sep   { width: 1px; height: 18px; background: var(--border); }
+.nav-sep   { width: 1px; height: 18px; background: rgba(150,158,255,0.25); }
 .nav-tag   { font-size: 10px; font-weight: 400; color: var(--text-subtle); letter-spacing: 2.5px; text-transform: uppercase; }
 .nav-right { display: flex; gap: 24px; list-style: none; align-items: center; }
 .nav-right a {
@@ -91,18 +104,19 @@ nav {
 .nav-cta {
   background: var(--gradient) !important;
   color: #fff !important;
-  padding: 7px 18px !important; border-radius: 6px; font-weight: 600 !important;
+  /* pill button come in Sibill */
+  padding: 8px 22px !important; border-radius: 100px !important; font-weight: 600 !important;
   transition: opacity 0.2s, transform 0.2s !important;
-  box-shadow: 0 2px 12px rgba(99,102,241,0.25);
+  box-shadow: 0 2px 16px rgba(99,102,241,0.30);
 }
 .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); color: #fff !important; }
 
-/* ── HERO ── */
+/* ── HERO — top offset accounts for announcement bar (36px) + nav (64px) ── */
 .hero {
   min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
-  padding: 100px clamp(20px,4vw,56px) 80px;
+  padding: 140px clamp(20px,4vw,56px) 80px;
   position: relative; overflow: hidden;
-  background: var(--bg);
+  background: linear-gradient(175deg, #edeeff 0%, #ffffff 55%);
 }
 .hero-glow {
   position: absolute; inset: 0; pointer-events: none;
@@ -157,14 +171,15 @@ nav {
 /* telemetry boxes */
 .telem { display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: up 0.8s 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
 .telem-box {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 10px; padding: 18px 26px; min-width: 138px;
+  /* white card with Sibill-style shadow on white background */
+  background: #fff; border: none;
+  border-radius: 14px; padding: 18px 26px; min-width: 138px;
   position: relative; overflow: hidden;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
   box-shadow: var(--shadow-card);
 }
 .telem-box:hover {
-  border-color: var(--border-indigo);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-hover);
 }
 .telem-box::after {
@@ -221,19 +236,18 @@ section { padding: clamp(72px,10vw,120px) clamp(20px,4vw,56px); }
 }
 .perche-cards { display: flex; flex-direction: column; gap: 12px; }
 .p-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 10px; padding: 22px 26px;
+  /* lavender fill — like Sibill feature cards, no border/shadow by default */
+  background: var(--bg-card); border: none;
+  border-radius: 12px; padding: 22px 26px;
   transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
   position: relative; cursor: default;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 .p-card::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
   border-radius: 3px 0 0 3px; background: var(--gradient); opacity: 0; transition: opacity 0.3s;
 }
 .p-card:hover {
-  background: var(--gradient-soft);
-  border-color: var(--border-indigo);
+  background: rgba(150,158,255,0.22);
   transform: translateX(6px);
   box-shadow: var(--shadow-hover);
 }
@@ -243,15 +257,14 @@ section { padding: clamp(72px,10vw,120px) clamp(20px,4vw,56px); }
 
 /* ── MATCH ── */
 .match-grid {
-  display: grid; grid-template-columns: repeat(2,1fr); gap: 2px;
-  background: var(--border); border-radius: 12px; overflow: hidden;
-  border: 1px solid var(--border);
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 12px;
+  border-radius: 16px; overflow: hidden;
 }
 .m-item {
-  background: var(--bg-card); padding: 30px; position: relative;
+  background: var(--bg-card); border-radius: 12px; padding: 30px; position: relative;
   transition: background 0.3s;
 }
-.m-item:hover { background: var(--gradient-soft); }
+.m-item:hover { background: rgba(150,158,255,0.22); }
 .m-badge {
   position: absolute; top: 14px; right: 14px;
   font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600;
@@ -271,11 +284,10 @@ section { padding: clamp(72px,10vw,120px) clamp(20px,4vw,56px); }
 
 /* ── VISIONE 90 GIORNI ── */
 .vis-phases {
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
-  border-radius: 12px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 40px;
-  background: var(--border);
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+  border-radius: 16px; overflow: hidden; margin-bottom: 40px;
 }
-.vis-phase { background: var(--bg-card); padding: 38px 30px; position: relative; overflow: hidden; }
+.vis-phase { background: var(--bg-card); border-radius: 16px; padding: 38px 30px; position: relative; overflow: hidden; }
 .vis-phase::after {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: var(--gradient); transform: scaleX(0); transform-origin: left;
@@ -306,19 +318,18 @@ section { padding: clamp(72px,10vw,120px) clamp(20px,4vw,56px); }
 /* ── EXTRA ── */
 .extra-cols { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
 .x-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 34px 26px;
+  /* lavender fill, no border — Sibill feature card style */
+  background: var(--bg-card); border: none;
+  border-radius: 16px; padding: 34px 26px;
   transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
   position: relative; overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 .x-card::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
   background: var(--gradient); opacity: 0; transition: opacity 0.3s;
 }
 .x-card:hover {
-  background: var(--gradient-soft);
-  border-color: var(--border-indigo);
+  background: rgba(150,158,255,0.22);
   transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
 }
@@ -394,7 +405,7 @@ section { padding: clamp(72px,10vw,120px) clamp(20px,4vw,56px); }
 .cta-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 .cta-btn {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 28px; border-radius: 8px;
+  padding: 14px 32px; border-radius: 100px; /* pill — from Sibill CTA */
   font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
   text-decoration: none; font-family: 'Poppins', sans-serif;
   transition: all 0.3s; cursor: pointer; border: none;
